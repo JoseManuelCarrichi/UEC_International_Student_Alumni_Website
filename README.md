@@ -3,8 +3,6 @@
 Please check the backlog below to see the current status of the project. Once you've added a new feature, be sure to commit your changes and make a merge request to the main branch.
 
 ## ToDo
-- [ ] Add events. Currently, the 'events' page displays three random events.
-- [ ] Dynamically display information about each event. Currently, when selecting an event to display more information, the user is redirected to the same page. It should be possible to redirect to a page that displays the appropriate content for each event.
 - [ ] Add news. Currently, news is random.
 - [ ] Add a backend to manage news.
 - [ ] Dynamically redirect to the page that displays the appropriate content for each news item.
@@ -14,8 +12,11 @@ Please check the backlog below to see the current status of the project. Once yo
 - [ ] Add team information to the 'about' page. I think this could be the program managers, or if you think it's more appropriate, we could add information about the team members.
 
 ## Feature in Progress
-- [ ] Add a backend to manage events.
+- [ ] Add events. Currently, the 'events' page displays three random events.
+- [ ] Dynamically display information about each event. Currently, when selecting an event to display more information, the user is redirected to the same page. It should be possible to redirect to a page that displays the appropriate content for each event.
+
 ## Done
+- [x] Add a backend to manage events.
 - [x] Create a backend to manage login and registration.
 - [x] Dynamic management of the alumni page. The profiles of registered users are dynamically displayed.
 - [x] Add a university logo.
