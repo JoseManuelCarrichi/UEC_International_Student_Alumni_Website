@@ -53,7 +53,8 @@ When you're ready to make this README your own, just edit this file and use the 
 Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
 
 ## Name
-Choose a self-explaining name for your project.
+Group 3 Alumni Website
+
 
 ## Description
 Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
@@ -74,7 +75,13 @@ Use examples liberally, and show the expected output if you can. It's helpful to
 Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
 
 ## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+
+- [ ] Add Images
+- [ ] Add University Logos
+- [ ] Add Hyperlinks for LinkedIn and Facebook
+- [ ] Back end website to add events and manage members
+- [ ] Fix the Login buttons and registair buttons. Need to have a database file to store login information and people information 
+
 
 ## Contributing
 State if you are open to contributions and what your requirements are for accepting them.
