@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Administrators | UEC International Student Alumni Network</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="main-header">
+        <nav class="main-nav">
+            <a href="index.html" class="logo">
+                <img src="images/UEC_LOGO.jpg" alt="UEC Alumni Logo" height="40">
+            </a>
+            <button class="hamburger" id="hamburger-menu" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <div class="nav-links">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="alumni.html">Alumni Directory</a></li>
+                    <li><a href="events.html">Events</a></li>
+                    <li><a href="news.html">News</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+                <div class="nav-auth">
+                    <a href="login.html" class="btn btn-secondary">Login</a>
+                    <a href="register.html" class="btn btn-primary">Register</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="page-header">
+                <h1>Manage Administrators</h1>
+            </div>
+
+            <div class="admin-section">
+                <h2>Add New Administrator</h2>
+                <form id="add-admin-form" class="admin-form">
+                    <div class="form-group">
+                        <label for="admin-email">Email Address</label>
+                        <input type="email" id="admin-email" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add Administrator</button>
+                </form>
+            </div>
+
+            <div class="admin-section">
+                <h2>Current Administrators</h2>
+                <div class="admin-list">
+                    <!-- Administrators will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="about.html">About</a>
+                <a href="alumni.html">Alumni</a>
+                <a href="events.html">Events</a>
+                <a href="news.html">News</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <div class="footer-social">
+                <a href="#" aria-label="LinkedIn">LinkedIn</a>
+                <a href="#" aria-label="Facebook">Facebook</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 UEC International Student Alumni Network. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/env.js"></script>
+    <script src="js/main.js"></script>
+    <script type="module" src="js/auth.js"></script>
+    <script type="module" src="js/manage-admins.js"></script>
+</body>
+</html> 
