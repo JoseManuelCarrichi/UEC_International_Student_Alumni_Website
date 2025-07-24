@@ -16,11 +16,12 @@ Please check the backlog below to see the current status of the project. Once yo
 - [x] Add a university logo.
 - [x] Fix the Login buttons and registair buttons. Need to have a database file to store login information and people information.
 - [x] Find out if the university has profiles on social media such as LinkedIn, Facebook, or Instagram. If it has official profiles, you need to correct the hyperlinks in the footer. If these profiles don't exist, please remove them.
+- [x] Find out if the university has profiles on social media such as LinkedIn, Facebook, or Instagram. If it has official profiles, you need to correct the hyperlinks in the footer. If these profiles don't exist, please remove them.
+- [x] Dynamically display information about each event. Currently, when selecting an event to display more information, the user is redirected to the same page. It should be possible to redirect to a page that displays the appropriate content for each event.
+
 
 > [!NOTE]
 > The website will soon be hosted on the following domain:
 
 > [!TIP]
 > You can now register and complete your profile to be listed in the directory. Please check the operation and make comments if you find any errors.
-- [x] Find out if the university has profiles on social media such as LinkedIn, Facebook, or Instagram. If it has official profiles, you need to correct the hyperlinks in the footer. If these profiles don't exist, please remove them.
-- [x] Dynamically display information about each event. Currently, when selecting an event to display more information, the user is redirected to the same page. It should be possible to redirect to a page that displays the appropriate content for each event.
