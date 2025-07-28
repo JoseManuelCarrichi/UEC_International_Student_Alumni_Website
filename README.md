@@ -25,7 +25,11 @@ Please check the backlog below to see the current status of the project. Once yo
 
 
 > [!NOTE]
-> The website will soon be hosted on the following domain:
+> You can visit the website at the next URLs:
+> - [Vercel](https://uec-international-student-alumni-we.vercel.app/)
+
+> You can use the following QR code to access the website from your mobile device:
+![QR Code](images/VercelQr.png)
 
 > [!TIP]
 > You can now register and complete your profile to be listed in the directory. Please check the operation and make comments if you find any errors.
