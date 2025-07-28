@@ -55,19 +55,52 @@ async function loadNewsArticles() {
 
         if (error) throw error;
 
-        const tableBody = document.getElementById('news-table-body');
-        tableBody.innerHTML = articles.map(article => `
-            <tr>
-                <td>${article.title}</td>
-                <td>${article.author || '-'}</td>
-                <td>${formatDate(article.publication_date)}</td>
-                <td>${article.is_featured ? '✓' : '-'}</td>
-                <td>
-                    <button onclick="editArticle(${article.id})" class="btn btn-small btn-secondary">Edit</button>
-                    <button onclick="deleteArticle(${article.id})" class="btn btn-small btn-danger">Delete</button>
-                </td>
-            </tr>
-        `).join('');
+        const newsList = document.querySelector('.news-management-list');
+        newsList.innerHTML = '';
+
+        articles.forEach(article => {
+            const articleElement = document.createElement('div');
+            articleElement.className = 'news-management-item';
+            articleElement.innerHTML = `
+                <div class="news-info">
+                    <div class="news-header">
+                        <h3>${article.title}</h3>
+                        ${article.is_featured ? '<span class="featured-badge">Featured</span>' : ''}
+                    </div>
+                    <div class="news-meta">
+                        <p>Published on ${formatDate(article.publication_date)}</p>
+                        ${article.author ? `<p>By ${article.author}</p>` : ''}
+                    </div>
+                    <div class="news-summary">
+                        <p>${article.summary}</p>
+                    </div>
+                    ${article.tags && article.tags.length > 0 ? `
+                        <div class="news-tags">
+                            ${article.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                        </div>
+                    ` : ''}
+                </div>
+                <div class="news-preview">
+                    ${article.image_url ? 
+                        `<img src="${article.image_url}" alt="${article.title}" class="news-thumbnail">` : 
+                        '<div class="no-image">No image</div>'}
+                </div>
+                <div class="news-actions">
+                    <button class="btn btn-secondary edit-news" data-id="${article.id}">Edit</button>
+                    <button class="btn btn-danger delete-news" data-id="${article.id}">Delete</button>
+                </div>
+            `;
+            newsList.appendChild(articleElement);
+        });
+
+        // Add event listeners to the new buttons
+        document.querySelectorAll('.edit-news').forEach(button => {
+            button.addEventListener('click', () => editArticle(button.dataset.id));
+        });
+
+        document.querySelectorAll('.delete-news').forEach(button => {
+            button.addEventListener('click', () => deleteArticle(button.dataset.id));
+        });
 
     } catch (error) {
         console.error('Error loading articles:', error.message);
@@ -278,10 +311,6 @@ async function deleteArticle(id) {
         alert('Error deleting article. Please try again.');
     }
 }
-
-// Make functions available globally
-window.editArticle = editArticle;
-window.deleteArticle = deleteArticle;
 
 // Initialize page when DOM is loaded
 document.addEventListener('DOMContentLoaded', init); 
