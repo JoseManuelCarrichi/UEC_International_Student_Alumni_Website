@@ -1,15 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>News & Stories | UEC International Student Alumni Network</title>
+    <title>Manage Administrators | UEC International Student Alumni Network</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
-
 <body>
-
     <header class="main-header">
         <nav class="main-nav">
             <a href="index.html" class="logo">
@@ -40,55 +37,26 @@
     <main>
         <div class="container">
             <div class="page-header">
-                <h1>News & Stories</h1>
+                <h1>Manage Administrators</h1>
             </div>
 
-            <div class="news-grid">
-                <!-- News Article Card 1 -->
-                <div class="news-card">
-                    <a href="news-article.html">
-                        <img src="images/award21.jpg" alt="News article thumbnail">
-                        <div class="card-content">
-                            <p class="news-meta">October 15, 2024</p>
-                            <h3>UEC Alumna Receives Prestigious Engineering Award</h3>
-                            <p class="news-excerpt">Find out how Maria Rodriguez (Class of 2015) is changing the field
-                                of robotics with her innovative work...</p>
-                        </div>
-                    </a>
-                </div>
-                <!-- News Article Card 2 -->
-                <div class="news-card">
-                    <a href="news-article.html">
-                        <img src="images/funding1by1.jpg" alt="News article thumbnail">
-                        <div class="card-content">
-                            <p class="news-meta">October 02, 2024</p>
-                            <h3>Alumni Start-up Secures $5M in Series A Funding</h3>
-                            <p class="news-excerpt">A company founded by three UEC graduates has just announced a major
-                                milestone in their journey to revolutionize sustainable energy...</p>
-                        </div>
-                    </a>
-                </div>
-                <!-- News Article Card 3 -->
-                <div class="news-card">
-                    <a href="news-article.html">
-                        <img src="images/internationalfair2by2.jpg" alt="News article thumbnail">
-                        <div class="card-content">
-                            <p class="news-meta">September 21, 2024</p>
-                            <h3>A Look Back: The International Friendship Fair</h3>
-                            <p class="news-excerpt">Relive the moments from last month's successful International
-                                Friendship Fair, which brought together students and alumni from over 30 countries...
-                            </p>
-                        </div>
-                    </a>
-                </div>
-                <!-- ... more cards ... -->
+            <div class="admin-section">
+                <h2>Add New Administrator</h2>
+                <form id="add-admin-form" class="admin-form">
+                    <div class="form-group">
+                        <label for="admin-email">Email Address</label>
+                        <input type="email" id="admin-email" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add Administrator</button>
+                </form>
             </div>
 
-            <!-- Pagination -->
-            <nav class="pagination">
-                <a href="#" class="btn btn-secondary disabled">Previous</a>
-                <a href="#" class="btn btn-secondary">Next</a>
-            </nav>
+            <div class="admin-section">
+                <h2>Current Administrators</h2>
+                <div class="admin-list">
+                    <!-- Administrators will be loaded here -->
+                </div>
+            </div>
         </div>
     </main>
 
@@ -126,6 +94,6 @@
     <script src="js/env.js"></script>
     <script src="js/main.js"></script>
     <script type="module" src="js/auth.js"></script>
+    <script type="module" src="js/manage-admins.js"></script>
 </body>
-
-</html>
+</html> 
