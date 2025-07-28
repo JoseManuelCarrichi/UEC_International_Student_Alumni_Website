@@ -1,5 +1,7 @@
 import { supabase } from './supabase-client.js';
 
+let quill;
+
 // Check if user is authenticated and is admin
 async function checkAdminAccess() {
     try {
@@ -36,6 +38,65 @@ function formatDate(dateString) {
     return new Date(dateString).toLocaleDateString(undefined, options);
 }
 
+// Initialize Quill editor
+function initQuill() {
+    quill = new Quill('#editor', {
+        theme: 'snow',
+        modules: {
+            toolbar: [
+                [{ 'header': [1, 2, 3, false] }],
+                ['bold', 'italic', 'underline', 'strike'],
+                ['blockquote', 'code-block'],
+                [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                [{ 'script': 'sub'}, { 'script': 'super' }],
+                [{ 'indent': '-1'}, { 'indent': '+1' }],
+                [{ 'direction': 'rtl' }],
+                [{ 'size': ['small', false, 'large', 'huge'] }],
+                [{ 'color': [] }, { 'background': [] }],
+                [{ 'font': [] }],
+                [{ 'align': [] }],
+                ['clean'],
+                ['link', 'image']
+            ]
+        },
+        placeholder: 'Write your article content here...',
+    });
+
+    // Handle image upload
+    const toolbar = quill.getModule('toolbar');
+    toolbar.addHandler('image', () => {
+        const input = document.createElement('input');
+        input.setAttribute('type', 'file');
+        input.setAttribute('accept', 'image/*');
+        input.click();
+
+        input.onchange = async () => {
+            const file = input.files[0];
+            if (file) {
+                try {
+                    const fileExt = file.name.split('.').pop();
+                    const fileName = `${Date.now()}.${fileExt}`;
+                    const { data: uploadData, error: uploadError } = await supabase.storage
+                        .from('news-images')
+                        .upload(fileName, file);
+
+                    if (uploadError) throw uploadError;
+
+                    const { data: { publicUrl } } = supabase.storage
+                        .from('news-images')
+                        .getPublicUrl(fileName);
+
+                    const range = quill.getSelection(true);
+                    quill.insertEmbed(range.index, 'image', publicUrl);
+                } catch (error) {
+                    console.error('Error uploading image:', error);
+                    alert('Error uploading image. Please try again.');
+                }
+            }
+        };
+    });
+}
+
 // Initialize the page
 async function init() {
     const isAdmin = await checkAdminAccess();
@@ -43,6 +104,7 @@ async function init() {
 
     await loadNewsArticles();
     setupEventHandlers();
+    initQuill();
 }
 
 // Load all news articles
@@ -122,13 +184,25 @@ function setupEventHandlers() {
         document.getElementById('news-id').value = '';
         newsForm.reset();
         document.getElementById('image-preview').innerHTML = '';
+        quill.setContents([]);
         modal.style.display = 'block';
     });
 
-    closeBtn.addEventListener('click', () => modal.style.display = 'none');
-    cancelBtn.addEventListener('click', () => modal.style.display = 'none');
+    closeBtn.addEventListener('click', () => {
+        modal.style.display = 'none';
+        quill.setContents([]);
+    });
+    
+    cancelBtn.addEventListener('click', () => {
+        modal.style.display = 'none';
+        quill.setContents([]);
+    });
+    
     window.addEventListener('click', (e) => {
-        if (e.target === modal) modal.style.display = 'none';
+        if (e.target === modal) {
+            modal.style.display = 'none';
+            quill.setContents([]);
+        }
     });
 
     newsForm.addEventListener('submit', handleSubmit);
@@ -158,6 +232,7 @@ async function handleSubmit(event) {
     const formData = new FormData(event.target);
     const newsId = document.getElementById('news-id').value;
     const imageFile = document.getElementById('image').files[0];
+    const content = quill.root.innerHTML;
 
     try {
         let imageUrl = null;
@@ -183,7 +258,7 @@ async function handleSubmit(event) {
         const articleData = {
             title: formData.get('title'),
             summary: formData.get('summary'),
-            content: formData.get('content'),
+            content: content,
             author: formData.get('author'),
             is_featured: formData.get('is_featured') === 'on',
             tags: formData.get('tags').split(',').map(tag => tag.trim()).filter(tag => tag),
@@ -225,6 +300,7 @@ async function handleSubmit(event) {
 
         // Close modal and reload
         document.getElementById('news-modal').style.display = 'none';
+        quill.setContents([]);
         await loadNewsArticles();
 
     } catch (error) {
@@ -251,7 +327,7 @@ async function editArticle(id) {
         document.getElementById('news-id').value = article.id;
         document.getElementById('title').value = article.title;
         document.getElementById('summary').value = article.summary;
-        document.getElementById('content').value = article.content;
+        quill.root.innerHTML = article.content;
         document.getElementById('author').value = article.author || '';
         document.getElementById('is_featured').checked = article.is_featured;
         document.getElementById('tags').value = article.tags ? article.tags.join(', ') : '';

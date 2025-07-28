@@ -76,6 +76,36 @@ async function loadNews() {
     }
 }
 
+// Sanitize HTML content
+function sanitizeHTML(html) {
+    const div = document.createElement('div');
+    div.innerHTML = html;
+    
+    // Remove potentially dangerous elements and attributes
+    const scripts = div.getElementsByTagName('script');
+    const iframes = div.getElementsByTagName('iframe');
+    const objects = div.getElementsByTagName('object');
+    const embeds = div.getElementsByTagName('embed');
+    
+    while(scripts.length > 0) scripts[0].remove();
+    while(iframes.length > 0) iframes[0].remove();
+    while(objects.length > 0) objects[0].remove();
+    while(embeds.length > 0) embeds[0].remove();
+    
+    // Remove dangerous attributes
+    const elements = div.getElementsByTagName('*');
+    for(let i = 0; i < elements.length; i++) {
+        const element = elements[i];
+        element.removeAttribute('onerror');
+        element.removeAttribute('onload');
+        element.removeAttribute('onclick');
+        element.removeAttribute('onmouseover');
+        element.removeAttribute('onmouseout');
+    }
+    
+    return div.innerHTML;
+}
+
 // Load single news article
 async function loadNewsArticle() {
     const urlParams = new URLSearchParams(window.location.search);
@@ -118,7 +148,7 @@ async function loadNewsArticle() {
                     ''}
                 
                 <div class="article-content">
-                    ${article.content}
+                    ${sanitizeHTML(article.content)}
                 </div>
 
                 ${article.tags && article.tags.length > 0 ? `
