@@ -38,6 +38,12 @@ function formatDate(dateString) {
     return new Date(dateString).toLocaleDateString(undefined, options);
 }
 
+// Format date for datetime-local input
+function formatDateForInput(dateString) {
+    const date = new Date(dateString);
+    return date.toISOString().slice(0, 16); // Format: YYYY-MM-DDThh:mm
+}
+
 // Initialize Quill editor
 function initQuill() {
     quill = new Quill('#editor', {
@@ -185,6 +191,9 @@ function setupEventHandlers() {
         newsForm.reset();
         document.getElementById('image-preview').innerHTML = '';
         quill.setContents([]);
+        // Set current date and time as default for new articles
+        const now = new Date();
+        document.getElementById('publication-date').value = formatDateForInput(now);
         modal.style.display = 'block';
     });
 
@@ -233,6 +242,7 @@ async function handleSubmit(event) {
     const newsId = document.getElementById('news-id').value;
     const imageFile = document.getElementById('image').files[0];
     const content = quill.root.innerHTML;
+    const publicationDate = new Date(formData.get('publication-date')).toISOString();
 
     try {
         let imageUrl = null;
@@ -260,6 +270,7 @@ async function handleSubmit(event) {
             summary: formData.get('summary'),
             content: content,
             author: formData.get('author'),
+            publication_date: publicationDate,
             is_featured: formData.get('is_featured') === 'on',
             tags: formData.get('tags').split(',').map(tag => tag.trim()).filter(tag => tag),
             ...(imageUrl && { image_url: imageUrl })
@@ -329,6 +340,7 @@ async function editArticle(id) {
         document.getElementById('summary').value = article.summary;
         quill.root.innerHTML = article.content;
         document.getElementById('author').value = article.author || '';
+        document.getElementById('publication-date').value = formatDateForInput(article.publication_date);
         document.getElementById('is_featured').checked = article.is_featured;
         document.getElementById('tags').value = article.tags ? article.tags.join(', ') : '';
 
@@ -389,4 +401,4 @@ async function deleteArticle(id) {
 }
 
 // Initialize page when DOM is loaded
-document.addEventListener('DOMContentLoaded', init); 
+document.addEventListener('DOMContentLoaded', init);
